@@ -70,9 +70,7 @@ public:
     void UpdateTurnTimer(float RemainingTime, float TotalTime);
 
     // Event
-    UFUNCTION()
     void OnInputCommitted(const FText& Text, ETextCommit::Type CommitMethod);
-    UFUNCTION()
     void OnReadyButtonClicked();
 
 };

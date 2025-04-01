@@ -170,7 +170,7 @@ void ABaseballGameMode::EvaluateGuess(APlayerController* Guesser, const FString&
 		FString GuessResult = UMyBlueprintFunctionLibrary::JudgeGuess(OpponentAnswer, Guess);
 		if (GuessResult == TEXT("3S0B"))
 		{
-			if (GS->GetCurrentTurn() == 0)
+			if (PC->UserID == 0)
 			{
 				GS->SetHostClearTurn(GS->GetHostTries());
 			}
@@ -206,9 +206,9 @@ void ABaseballGameMode::CheckGameResult()
 			return;
 		}
 		
-		if (HostClearTurn > 0 && GuestClearTurn > 0)
+		if (HostClearTurn > 0 || GuestClearTurn > 0)
 		{
-			const int32 WinnerID = (HostClearTurn < GuestClearTurn) ? 0 : 1;
+			const int32 WinnerID = (HostClearTurn > 0) ? 0 : 1;
 			GS->SetResult(WinnerID == 0 ? EEndGameResult::HostWin : EEndGameResult::GuestWin);
 
 			for (FConstPlayerControllerIterator it = GetWorld()->GetPlayerControllerIterator(); it; ++it)
